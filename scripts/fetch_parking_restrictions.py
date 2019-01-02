@@ -17,6 +17,12 @@ class ParkingRestriction(Document):
     ticket = BooleanField()
     metered = BooleanField()
     free = BooleanField()
+    meta = {
+        'indexes': [
+            'bay_id',
+            'day'
+        ]
+    }
 
 
 
@@ -47,8 +53,8 @@ def parkingRestrictions_per_day(parking_bay_restriction, restricted_slot):
         parking_restrcition.bay_id = parking_bay_restriction["bayid"]
         parking_restrcition.description = restricted_slot[0]
         parking_restrcition.day =  day if day != 7  else 0
-        parking_restrcition.startTime = datetime.strptime(restricted_slot[3], '%H:%M:%S').time()
-        parking_restrcition.endTime = datetime.strptime(restricted_slot[4], '%H:%M:%S').time()
+        parking_restrcition.startTime = datetime.strptime(restricted_slot[3], '%H:%M:%S')
+        parking_restrcition.endTime = datetime.strptime(restricted_slot[4], '%H:%M:%S')
         parking_restrcition.duration = int(restricted_slot[5])
         parking_restrcition.typedesc = restricted_slot[6]
         parking_restrcition.effectiveOnPH = bool(restricted_slot[7])
@@ -66,7 +72,7 @@ def free_slots(parkingRestrictios):
 
 
 def create_free_slots(bayId, day, parkdingRestrictionsList):
-    hours_in_day = (time(0, 00,00), time(23,59,00))
+    hours_in_day = (datetime(1900,1,1,0, 00,00), datetime(1900,1,1,23,59,00))
     reserved_slots = []
     free_slots = []
     for parkingRestiction in parkdingRestrictionsList:
@@ -90,6 +96,7 @@ def convert_to_parkingRestrictions(parking_bay_restriction, restrcted_slots):
     return reduce(list.__add__, parking_restrcitions)
 
 
+
 url = 'https://data.melbourne.vic.gov.au/resource/ntht-5rk7.json?$limit=50000'
 headers = {'X-App-Token': '2rKRf7vDTZdViV0k15XJuBBTH'}
 
@@ -102,5 +109,6 @@ for parking_bay_restriction in resp.json():
     free_slots_list = free_slots(parkingRestrictions)
     parkingRestrictions.extend(free_slots_list)
 
+    connect('melbourneCarpark', host='localhost', port=27017)
     for parking_restiction in parkingRestrictions:
-        print parking_restiction.to_json()
+        parking_restiction.save()
