@@ -3,6 +3,7 @@ import json
 from datetime import time,datetime
 import itertools
 from mongoengine import *
+from functools import reduce
 
 class ParkingRestriction(Document):
     bay_id = StringField()
