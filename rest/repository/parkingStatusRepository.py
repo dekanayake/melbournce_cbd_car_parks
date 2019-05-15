@@ -7,10 +7,10 @@ class ParkingStatusRepository:
         self.db = client.melbourneCarpark
 
 
-    def getAvailableParkingSlots(self, longitude, lattitude):
+    def getAvailableParkingSlots(self, longitude, lattitude, lastModifiedTimeId):
         #query = {"location": SON([("$near", [longitude, lattitude]), ("$maxDistance", 1/111.12)])}
         #return self.db.parking_bay_status.find(query).limit(100)
-        return self.db.parking_bay_status.find({ "location" :
+        return list(self.db.parking_bay_status.find({ "location" :
                 { "$near" :
                   {
                     "$geometry" : {
@@ -18,5 +18,6 @@ class ParkingStatusRepository:
                        "coordinates" : [longitude, lattitude] },
                     "$maxDistance" : 1/111.12
                   }
-               }
-        }).limit(100)
+               },
+            "lastModifiedTimeId" : lastModifiedTimeId
+        }).limit(100))

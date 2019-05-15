@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-from bson.son import SON
 
 class ParkingBayRestrictionRepository:
     def __init__(self):
@@ -8,9 +7,9 @@ class ParkingBayRestrictionRepository:
 
 
     def getAvailableParkingBayRestrictions(self, bayIds, day, currentTime):
-        return self.db.parking_restriction.find({
+        return list(self.db.parking_restriction.find({
                 "bay_id":{"$in":bayIds},
                 "day":day,
                 "startTime":{"$lte":currentTime},
                 "endTime":{"$gte":currentTime}
-            })
+            }))

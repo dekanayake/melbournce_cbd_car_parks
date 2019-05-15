@@ -8,4 +8,4 @@ class ParkingBayRepository:
 
 
     def getAvailableParkingBays(self, markerIds):
-        return self.db.parking_bay.find({"marker_id":{"$in":markerIds}})
+        return list(self.db.parking_bay.find({"marker_id":{"$in":markerIds}}))

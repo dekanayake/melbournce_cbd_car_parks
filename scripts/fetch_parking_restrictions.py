@@ -27,8 +27,6 @@ class ParkingRestriction(Document):
 
 
 
-
-
 def get_restricted_slots(parking_bay_restriction):
     restricted_slots = []
     for parking_restriction_number in range(1,6):
@@ -85,6 +83,13 @@ def create_free_slots(bayId, day, parkdingRestrictionsList):
             parking_restrcition.day =  day
             parking_restrcition.startTime = start
             parking_restrcition.endTime = end
+            parking_restrcition.description = parkingRestiction.description
+            parking_restrcition.typedesc = parkingRestiction.typedesc
+            parking_restrcition.disableOnly = parkingRestiction.disableOnly
+            parking_restrcition.effectiveOnPH = parkingRestiction.effectiveOnPH
+            parking_restrcition.disableOnly = parkingRestiction.disableOnly
+            parking_restrcition.ticket = parkingRestiction.ticket
+            parking_restrcition.metered = parkingRestiction.metered
             parking_restrcition.free =  True
             free_slots.append(parking_restrcition)
     return free_slots

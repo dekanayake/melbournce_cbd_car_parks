@@ -1,1 +1,4 @@
 react/node_modules
+**/**/*.pyc
+**/**/*cpython*.pyc
+**/**/.idea
