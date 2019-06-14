@@ -1,9 +1,9 @@
 from datetime import datetime
-from rest.domain.availableParkingBay import AvailableParkingBay
-from rest.repository.parkingBayRepository import ParkingBayRepository
-from rest.repository.parkingStatusRepository import ParkingStatusRepository
-from rest.repository.parkingBayRestrictionRepository import ParkingBayRestrictionRepository
-from rest.repository.parkingStatusModifiedTimeRepositiory import ParkingStatusModifiedTimeRepository
+from domain.availableParkingBay import AvailableParkingBay
+from repository.parkingBayRepository import ParkingBayRepository
+from repository.parkingStatusRepository import ParkingStatusRepository
+from repository.parkingBayRestrictionRepository import ParkingBayRestrictionRepository
+from repository.parkingStatusModifiedTimeRepositiory import ParkingStatusModifiedTimeRepository
 
 class ParkingBayService:
     def __init__(self):

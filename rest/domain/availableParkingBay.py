@@ -6,3 +6,12 @@ class AvailableParkingBay:
     self.lattitude = lattitude
     self.parkingRestrictionDescription = parkingBayRestrictionDescription
     self.parkingBayDescription = parkingBayDescription
+
+  def serialize(self):
+    return {
+      'bayId': self.bayId,
+      'longitude': self.longitude,
+      'lattitude': self.lattitude,
+      'parkingRestrictionDescription': self.parkingRestrictionDescription,
+      'parkingBayDescription': self.parkingBayDescription,
+    }
